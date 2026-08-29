@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobbies — Dead Last</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="lobby-browser">
+
+        <header class="page-header">
+            <button class="back-button" onclick="goHome()">← BACK</button>
+            <h1>LOBBIES</h1>
+        </header>
+
+        <section class="join-code">
+            <h2>JOIN WITH CODE</h2>
+
+            <div class="code-input">
+                <input
+                    type="text"
+                    id="lobbyCode"
+                    placeholder="ENTER CODE"
+                    maxlength="6"
+                    autocomplete="off"
+                >
+
+                <button onclick="joinWithCode()">JOIN</button>
+            </div>
+        </section>
+
+        <section class="open-lobbies">
+
+            <div class="section-title">
+                <h2>OPEN LOBBIES</h2>
+                <button onclick="refreshLobbies()">↻ REFRESH</button>
+            </div>
+
+            <div id="lobbyList" class="lobby-list">
+
+                <div class="empty-lobbies">
+                    <p>NO OPEN LOBBIES</p>
+                    <span>CREATE ONE AND BE THE FIRST.</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <button class="create-button" onclick="createLobby()">
+            + CREATE LOBBY
+        </button>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
