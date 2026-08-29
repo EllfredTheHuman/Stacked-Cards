@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dead Last — Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="game">
+
+        <!-- TOP BAR -->
+        <header class="game-header">
+
+            <div class="round-info">
+                <span>ROUND</span>
+                <strong id="roundNumber">1</strong>
+            </div>
+
+            <div class="turn-info">
+                <span id="turnMessage">YOUR TURN</span>
+                <strong id="timer">30</strong>
+            </div>
+
+            <div class="game-actions">
+                <button onclick="openRules()">RULES</button>
+                <button onclick="openSettings()">⚙</button>
+            </div>
+
+        </header>
+
+
+        <!-- OTHER PLAYERS -->
+        <section class="opponents">
+
+            <div class="opponent" id="player2">
+
+                <div class="opponent-header">
+                    <div class="avatar">?</div>
+
+                    <div>
+                        <strong>PLAYER 2</strong>
+                        <span>❤️❤️❤️</span>
+                    </div>
+                </div>
+
+                <div class="opponent-stats">
+                    <span>🪙 <b>5</b></span>
+                    <span>⭐ <b id="player2Score">5</b></span>
+                </div>
+
+            </div>
+
+
+            <div class="opponent" id="player3">
+
+                <div class="opponent-header">
+                    <div class="avatar">?</div>
+
+                    <div>
+                        <strong>PLAYER 3</strong>
+                        <span>❤️❤️❤️</span>
+                    </div>
+                </div>
+
+                <div class="opponent-stats">
+                    <span>🪙 <b>5</b></span>
+                    <span>⭐ <b id="player3Score">5</b></span>
+                </div>
+
+            </div>
+
+
+            <div class="opponent" id="player4">
+
+                <div class="opponent-header">
+                    <div class="avatar">?</div>
+
+                    <div>
+                        <strong>PLAYER 4</strong>
+                        <span>❤️❤️❤️</span>
+                    </div>
+                </div>
+
+                <div class="opponent-stats">
+                    <span>🪙 <b>5</b></span>
+                    <span>⭐ <b id="player4Score">5</b></span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TABLE -->
+        <section class="game-table">
+
+            <div class="table-title">
+                <span>YOUR SCORE</span>
+                <strong id="playerScore">5</strong>
+            </div>
+
+
+            <!-- ACTIVITY LOG -->
+            <div class="activity-log" id="activityLog">
+                <p>Game started.</p>
+            </div>
+
+
+            <!-- CARDS -->
+            <section class="hand-section">
+
+                <div class="hand-header">
+                    <h2>YOUR CARDS</h2>
+                    <span>PLAY AS MANY AS YOU WANT</span>
+                </div>
+
+                <div class="card-hand" id="cardHand">
+
+                    <button class="card" onclick="playCard('example')">
+                        <span class="card-icon">➕</span>
+                        <strong>BOOST</strong>
+                        <p>Gain 3 points.</p>
+                    </button>
+
+                    <button class="card" onclick="playCard('example')">
+                        <span class="card-icon">🪙</span>
+                        <strong>TAX</strong>
+                        <p>Take 2 points from a player ahead of you.</p>
+                    </button>
+
+                    <button class="card" onclick="playCard('example')">
+                        <span class="card-icon">🎲</span>
+                        <strong>RISK</strong>
+                        <p>Gain 0–8 points.</p>
+                    </button>
+
+                    <button class="card" onclick="playCard('example')">
+                        <span class="card-icon">🛡️</span>
+                        <strong>PROTECT</strong>
+                        <p>Protect yourself from the next attack.</p>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ITEMS -->
+            <section class="items-section">
+
+                <div class="items-header">
+                    <h2>YOUR ITEMS</h2>
+                    <span>0 / 2 USED</span>
+                </div>
+
+                <div class="item-hand" id="itemHand">
+
+                    <button
+                        class="item"
+                        onclick="useItem('emergencyStop')"
+                    >
+                        <span>🛑</span>
+                        <strong>EMERGENCY STOP</strong>
+                    </button>
+
+                    <button
+                        class="item"
+                        onclick="useItem('shield')"
+                    >
+                        <span>🛡️</span>
+                        <strong>SHIELD</strong>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- END TURN -->
+            <button
+                id="endTurnButton"
+                class="end-turn"
+                onclick="endTurn()"
+            >
+                END TURN
+            </button>
+
+        </section>
+
+
+        <!-- PLAYER INFO -->
+        <footer class="player-footer">
+
+            <div>
+                <span>YOUR LIVES</span>
+                <strong id="playerLives">❤️ ❤️ ❤️</strong>
+            </div>
+
+            <div>
+                <span>COINS</span>
+                <strong id="playerCoins">🪙 5</strong>
+            </div>
+
+            <button onclick="openShop()">
+                🛒 SHOP
+            </button>
+
+        </footer>
+
+    </main>
+
+
+    <!-- RULES MODAL -->
+    <div class="modal hidden" id="rulesModal">
+
+        <div class="modal-content">
+
+            <button class="close-button" onclick="closeRules()">×</button>
+
+            <h2>RULES</h2>
+
+            <p>
+                Start your turn with 5 points.
+                Use cards and items to increase your score
+                or interfere with other players.
+            </p>
+
+            <p>
+                At the end of the round, the player
+                with the lowest score loses a life.
+            </p>
+
+            <p>
+                Lose all your lives and you're eliminated.
+                Last player standing wins.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SHOP MODAL -->
+    <div class="modal hidden" id="shopModal">
+
+        <div class="modal-content shop">
+
+            <button class="close-button" onclick="closeShop()">×</button>
+
+            <h2>SHOP</h2>
+
+            <p>Spend your coins on items.</p>
+
+            <div id="shopItems">
+
+                <div class="shop-item">
+
+                    <div>
+                        <strong>🛑 Emergency Stop</strong>
+                        <p>End another player's turn.</p>
+                    </div>
+
+                    <button onclick="buyItem('emergencyStop', 5)">
+                        🪙 5
+                    </button>
+
+                </div>
+
+
+                <div class="shop-item">
+
+                    <div>
+                        <strong>🛡️ Shield</strong>
+                        <p>Block one negative effect.</p>
+                    </div>
+
+                    <button onclick="buyItem('shield', 4)">
+                        🪙 4
+                    </button>
+
+                </div>
+
+
+                <div class="shop-item">
+
+                    <div>
+                        <strong>🔎 Spyglass</strong>
+                        <p>Look at another player's cards.</p>
+                    </div>
+
+                    <button onclick="buyItem('spyglass', 6)">
+                        🪙 6
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
