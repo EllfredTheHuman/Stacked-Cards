@@ -1,869 +1,1427 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  }
 
 :root {
-    --bg: #0b0b0f;
-    --panel: #121218;
-    --panel-light: #191922;
-    --border: #2a2a35;
-    --text: #f1f1f1;
-    --muted: #8b8b98;
-    --accent: #ffffff;
-    --danger: #ff4d4d;
-    --gold: #f4c542;
+--bg: #09090c;
+--panel: #111116;
+--panel-light: #19191f;
+--border: #292932;
+--border-light: #3a3a45;
+
+```
+--text: #eeeeee;
+--muted: #888892;
+
+--danger: #ff4d4d;
+--gold: #f2c94c;
+--success: #68d391;
+```
+
+}
+
+html,
+body {
+min-height: 100%;
 }
 
 body {
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Space Mono", monospace;
-    image-rendering: pixelated;
+min-height: 100vh;
+background: var(--bg);
+color: var(--text);
+font-family: "Space Mono", monospace;
 }
 
 button,
 input,
 select {
-    font-family: inherit;
+font-family: inherit;
 }
 
 button {
-    border: none;
-    cursor: pointer;
+cursor: pointer;
 }
 
+h1,
+h2,
+button {
+font-family: "Press Start 2P", monospace;
+}
 
-/* =========================
-   GENERAL
-========================= */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+outline: 2px solid var(--text);
+outline-offset: 3px;
+}
+
+/* =========================================
+GENERAL
+========================================= */
 
 .main-menu,
 .lobby-browser,
 .create-lobby,
 .waiting-lobby,
 .game {
-    min-height: 100vh;
-    padding: 30px;
+min-height: 100vh;
+padding: 30px;
 }
 
-h1,
-h2,
-button,
-.logo p,
-.lobby-code strong {
-    font-family: "Press Start 2P", monospace;
-}
-
-
-/* =========================
-   MAIN MENU
-========================= */
+/* =========================================
+MAIN MENU
+========================================= */
 
 .main-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+
+/* Subtle pixel-grid background */
+
+.main-menu::before {
+content: "";
+position: absolute;
+inset: 0;
+opacity: 0.08;
+pointer-events: none;
+
+```
+background-image:
+    linear-gradient(
+        var(--border) 1px,
+        transparent 1px
+    ),
+    linear-gradient(
+        90deg,
+        var(--border) 1px,
+        transparent 1px
+    );
+
+background-size: 32px 32px;
+```
+
+}
+
+.logo {
+position: relative;
+z-index: 1;
 }
 
 .logo h1 {
-    font-size: clamp(38px, 7vw, 80px);
-    letter-spacing: 5px;
-    margin-bottom: 20px;
-    text-shadow: 5px 5px 0 #252530;
+font-size: clamp(35px, 7vw, 75px);
+line-height: 1.2;
+letter-spacing: 4px;
+
+```
+text-shadow:
+    4px 4px 0 #27272f,
+    8px 8px 0 #15151a;
+```
+
 }
 
 .logo p {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.8;
-    max-width: 500px;
+max-width: 520px;
+margin-top: 25px;
+
+```
+color: var(--muted);
+font-size: 11px;
+line-height: 1.8;
+```
+
 }
 
 .menu-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    width: min(350px, 90%);
-    margin-top: 50px;
+position: relative;
+z-index: 1;
+
+```
+display: flex;
+flex-direction: column;
+gap: 12px;
+
+width: min(360px, 90%);
+margin-top: 50px;
+```
+
 }
 
-.menu-buttons button,
-.create-button,
-.start-button {
-    padding: 18px 22px;
-    background: var(--text);
-    color: var(--bg);
-    border: 3px solid var(--text);
-    transition: 0.15s;
+.menu-buttons button {
+padding: 18px;
+
+```
+background: var(--text);
+color: var(--bg);
+
+border: 3px solid var(--text);
+
+transition:
+    transform 0.1s,
+    box-shadow 0.1s,
+    background 0.1s,
+    color 0.1s;
+```
+
 }
 
-.menu-buttons button:hover,
-.create-button:hover,
-.start-button:hover {
-    background: transparent;
-    color: var(--text);
-    transform: translate(-3px, -3px);
-    box-shadow: 6px 6px 0 var(--text);
+.menu-buttons button:hover {
+background: transparent;
+color: var(--text);
+
+```
+transform: translate(-3px, -3px);
+
+box-shadow:
+    3px 3px 0 var(--text),
+    6px 6px 0 var(--border-light);
+```
+
+}
+
+.menu-buttons button:active {
+transform: translate(0, 0);
+box-shadow: none;
 }
 
 .menu-footer {
-    position: absolute;
-    bottom: 25px;
-    color: var(--muted);
-    font-size: 10px;
+position: absolute;
+bottom: 25px;
+
+```
+color: var(--muted);
+font-size: 9px;
+```
+
 }
 
-
-/* =========================
-   HEADERS
-========================= */
+/* =========================================
+PAGE HEADER
+========================================= */
 
 .page-header,
 .lobby-header {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 25px;
-    margin-bottom: 35px;
+display: flex;
+align-items: center;
+gap: 25px;
+
+```
+padding-bottom: 25px;
+margin-bottom: 30px;
+
+border-bottom: 2px solid var(--border);
+```
+
 }
 
 .page-header h1,
 .lobby-header h1 {
-    font-size: 22px;
+font-size: 20px;
 }
 
 .back-button {
-    background: transparent;
-    color: var(--muted);
-    border: 2px solid var(--border);
-    padding: 12px 15px;
+padding: 12px 15px;
+
+```
+background: transparent;
+color: var(--muted);
+
+border: 2px solid var(--border);
+```
+
 }
 
 .back-button:hover {
-    color: var(--text);
-    border-color: var(--text);
+color: var(--text);
+border-color: var(--text);
 }
 
-
-/* =========================
-   LOBBY BROWSER
-========================= */
+/* =========================================
+LOBBY BROWSER
+========================================= */
 
 .lobby-browser {
-    max-width: 1000px;
-    margin: auto;
+width: min(1000px, 100%);
+margin: auto;
 }
 
 .join-code,
 .open-lobbies {
-    background: var(--panel);
-    border: 2px solid var(--border);
-    padding: 25px;
-    margin-bottom: 25px;
+padding: 25px;
+margin-bottom: 20px;
+
+```
+background: var(--panel);
+border: 2px solid var(--border);
+```
+
 }
 
 .join-code h2,
 .section-title h2 {
-    font-size: 14px;
-    margin-bottom: 18px;
+font-size: 12px;
+margin-bottom: 18px;
 }
 
 .code-input {
-    display: flex;
-    gap: 10px;
+display: flex;
+gap: 10px;
 }
 
-.code-input input,
-.setting input,
-.setting select {
-    flex: 1;
-    background: var(--bg);
-    color: var(--text);
-    border: 2px solid var(--border);
-    padding: 15px;
-    outline: none;
+.code-input input {
+flex: 1;
+
+```
+min-width: 0;
+
+padding: 15px;
+
+background: var(--bg);
+color: var(--text);
+
+border: 2px solid var(--border);
+
+outline: none;
+
+text-transform: uppercase;
+```
+
 }
 
-.code-input input:focus,
-.setting input:focus,
-.setting select:focus {
-    border-color: var(--text);
+.code-input input:focus {
+border-color: var(--text);
 }
 
 .code-input button {
-    padding: 15px 25px;
-    background: var(--text);
-    color: var(--bg);
+padding: 15px 22px;
+
+```
+background: var(--text);
+color: var(--bg);
+```
+
 }
 
 .section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .section-title button {
-    background: transparent;
-    color: var(--muted);
+background: transparent;
+color: var(--muted);
+
+```
+font-family: "Space Mono", monospace;
+font-weight: bold;
+```
+
+}
+
+.section-title button:hover {
+color: var(--text);
 }
 
 .lobby-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
 
 .empty-lobbies {
-    text-align: center;
-    padding: 50px 20px;
-    border: 2px dashed var(--border);
+padding: 50px 20px;
+
+```
+text-align: center;
+
+border: 2px dashed var(--border);
+```
+
 }
 
 .empty-lobbies p {
-    font-family: "Press Start 2P", monospace;
-    font-size: 12px;
-    margin-bottom: 12px;
+font-family: "Press Start 2P", monospace;
+font-size: 10px;
+margin-bottom: 12px;
 }
 
 .empty-lobbies span {
-    color: var(--muted);
-    font-size: 11px;
+color: var(--muted);
+font-size: 10px;
 }
 
+.create-button {
+width: 100%;
+padding: 18px;
 
-/* =========================
-   CREATE LOBBY
-========================= */
+```
+background: transparent;
+color: var(--text);
+
+border: 2px solid var(--text);
+
+transition: 0.1s;
+```
+
+}
+
+.create-button:hover {
+background: var(--text);
+color: var(--bg);
+}
+
+/* =========================================
+CREATE LOBBY
+========================================= */
 
 .create-lobby {
-    max-width: 850px;
-    margin: auto;
+width: min(850px, 100%);
+margin: auto;
 }
 
 .lobby-settings,
 .shop-settings {
-    background: var(--panel);
-    border: 2px solid var(--border);
-    padding: 25px;
-    margin-bottom: 25px;
+padding: 25px;
+margin-bottom: 20px;
+
+```
+background: var(--panel);
+border: 2px solid var(--border);
+```
+
 }
 
 .setting {
-    margin-bottom: 25px;
+margin-bottom: 25px;
 }
 
 .setting:last-child {
-    margin-bottom: 0;
+margin-bottom: 0;
 }
 
 .setting label {
-    display: block;
-    font-family: "Press Start 2P", monospace;
-    font-size: 10px;
-    margin-bottom: 10px;
+display: block;
+
+```
+margin-bottom: 10px;
+
+font-family: "Press Start 2P", monospace;
+font-size: 9px;
+```
+
+}
+
+.setting input,
+.setting select {
+width: 100%;
+
+```
+padding: 14px;
+
+background: var(--bg);
+color: var(--text);
+
+border: 2px solid var(--border);
+
+outline: none;
+```
+
+}
+
+.setting select {
+cursor: pointer;
+}
+
+.setting input:focus,
+.setting select:focus {
+border-color: var(--text);
 }
 
 .option-buttons {
-    display: flex;
-    gap: 10px;
+display: flex;
+gap: 10px;
 }
 
 .option-buttons button {
-    flex: 1;
-    padding: 15px;
-    background: var(--bg);
-    color: var(--muted);
-    border: 2px solid var(--border);
+flex: 1;
+
+```
+padding: 15px;
+
+background: var(--bg);
+color: var(--muted);
+
+border: 2px solid var(--border);
+
+font-size: 8px;
+```
+
+}
+
+.option-buttons button:hover {
+color: var(--text);
+border-color: var(--border-light);
 }
 
 .option-buttons button.selected {
-    color: var(--text);
-    border-color: var(--text);
+color: var(--text);
+border-color: var(--text);
 }
 
 .shop-settings h2 {
-    font-size: 14px;
-    margin-bottom: 10px;
+font-size: 12px;
+margin-bottom: 10px;
 }
 
 .shop-settings > p {
-    color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 20px;
+margin-bottom: 20px;
+
+```
+color: var(--muted);
+font-size: 10px;
+```
+
 }
 
 .item-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 10px;
 }
 
 .item-option {
-    background: var(--bg);
-    border: 2px solid var(--border);
-    padding: 15px;
-    cursor: pointer;
-    font-size: 11px;
+padding: 15px;
+
+```
+background: var(--bg);
+border: 2px solid var(--border);
+
+cursor: pointer;
+
+font-size: 10px;
+```
+
 }
 
 .item-option:hover {
-    border-color: var(--text);
+border-color: var(--text);
 }
 
 .item-option input {
-    margin-right: 8px;
+margin-right: 8px;
 }
 
 .start-button {
-    width: 100%;
+width: 100%;
+padding: 18px;
+
+```
+background: var(--text);
+color: var(--bg);
+
+border: 3px solid var(--text);
+
+transition: 0.1s;
+```
+
 }
 
+.start-button:hover:not(:disabled) {
+background: transparent;
+color: var(--text);
 
-/* =========================
-   WAITING LOBBY
-========================= */
+```
+transform: translate(-3px, -3px);
+
+box-shadow: 5px 5px 0 var(--text);
+```
+
+}
+
+.start-button:disabled {
+opacity: 0.3;
+cursor: not-allowed;
+}
+
+/* =========================================
+WAITING LOBBY
+========================================= */
 
 .waiting-lobby {
-    max-width: 1100px;
-    margin: auto;
+width: min(1100px, 100%);
+margin: auto;
 }
 
 .lobby-header {
-    justify-content: space-between;
+justify-content: space-between;
 }
 
 .lobby-header > div:nth-child(2) {
-    flex: 1;
+flex: 1;
 }
 
 .lobby-header h1 {
-    margin-bottom: 8px;
+margin-bottom: 8px;
 }
 
 .lobby-header p {
-    color: var(--muted);
-    font-size: 10px;
+color: var(--muted);
+font-size: 9px;
 }
 
 .lobby-code {
-    text-align: right;
+text-align: right;
 }
 
 .lobby-code span {
-    display: block;
-    color: var(--muted);
-    font-size: 9px;
-    margin-bottom: 8px;
+display: block;
+
+```
+margin-bottom: 7px;
+
+color: var(--muted);
+font-size: 8px;
+```
+
 }
 
 .lobby-code strong {
-    font-size: 18px;
-    letter-spacing: 4px;
+font-size: 18px;
+letter-spacing: 4px;
 }
 
 .lobby-code button {
-    display: block;
-    margin-left: auto;
-    margin-top: 8px;
-    background: transparent;
-    color: var(--muted);
-    font-size: 9px;
+margin-top: 8px;
+
+```
+background: transparent;
+color: var(--muted);
+
+font-family: "Space Mono", monospace;
+font-size: 9px;
+font-weight: bold;
+```
+
+}
+
+.lobby-code button:hover {
+color: var(--text);
 }
 
 .players-section,
 .rules-section {
-    background: var(--panel);
-    border: 2px solid var(--border);
-    padding: 25px;
-    margin-bottom: 25px;
+padding: 25px;
+margin-bottom: 20px;
+
+```
+background: var(--panel);
+border: 2px solid var(--border);
+```
+
 }
 
 .players-section h2,
 .rules-header h2 {
-    font-size: 13px;
-    margin-bottom: 20px;
+font-size: 11px;
+margin-bottom: 20px;
 }
 
 .player-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 10px;
 }
 
 .player-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: var(--bg);
-    border: 2px solid var(--border);
+display: flex;
+align-items: center;
+gap: 15px;
+
+```
+padding: 15px;
+
+background: var(--bg);
+border: 2px solid var(--border);
+```
+
+}
+
+.player-card.host {
+border-color: var(--border-light);
 }
 
 .player-avatar,
 .avatar {
-    width: 45px;
-    height: 45px;
-    display: grid;
-    place-items: center;
-    background: var(--panel-light);
-    border: 2px solid var(--border);
-    font-family: "Press Start 2P", monospace;
+width: 45px;
+height: 45px;
+
+```
+display: grid;
+place-items: center;
+
+flex-shrink: 0;
+
+background: var(--panel-light);
+border: 2px solid var(--border);
+
+font-family: "Press Start 2P", monospace;
+```
+
 }
 
 .player-info {
-    flex: 1;
+flex: 1;
 }
 
 .player-info strong {
-    display: block;
-    font-size: 12px;
+display: block;
+font-size: 11px;
 }
 
 .player-info span {
-    color: var(--muted);
-    font-size: 9px;
+color: var(--muted);
+font-size: 8px;
 }
 
 .player-status {
-    font-size: 9px;
+font-size: 8px;
 }
 
 .player-status.ready {
-    color: #7dff9b;
+color: var(--success);
 }
 
 .rules-header {
-    display: flex;
-    justify-content: space-between;
+display: flex;
+justify-content: space-between;
+align-items: center;
 }
 
 .rules-header button {
-    background: transparent;
-    color: var(--muted);
-    font-size: 9px;
+background: transparent;
+color: var(--muted);
+
+```
+font-family: "Space Mono", monospace;
+font-size: 9px;
+font-weight: bold;
+```
+
+}
+
+.rules-header button:hover {
+color: var(--text);
 }
 
 .rules-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 10px;
 }
 
 .rule {
-    background: var(--bg);
-    border: 2px solid var(--border);
-    padding: 18px;
+padding: 18px;
+
+```
+background: var(--bg);
+border: 2px solid var(--border);
+```
+
 }
 
-.rule span {
-    display: block;
-    font-size: 20px;
-    margin-bottom: 15px;
+.rule > span {
+display: block;
+
+```
+margin-bottom: 15px;
+
+font-size: 20px;
+```
+
 }
 
 .rule strong {
-    display: block;
-    font-family: "Press Start 2P", monospace;
-    font-size: 8px;
-    margin-bottom: 8px;
+display: block;
+
+```
+margin-bottom: 8px;
+
+font-family: "Press Start 2P", monospace;
+font-size: 7px;
+```
+
 }
 
 .rule p {
-    color: var(--muted);
-    font-size: 10px;
+color: var(--muted);
+font-size: 9px;
 }
 
 .lobby-actions {
-    text-align: center;
+text-align: center;
 }
 
 .lobby-actions p {
-    color: var(--muted);
-    font-size: 10px;
-    margin-bottom: 15px;
+margin-bottom: 15px;
+
+```
+color: var(--muted);
+font-size: 9px;
+```
+
 }
 
-.start-button:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-
-/* =========================
-   GAME
-========================= */
+/* =========================================
+GAME
+========================================= */
 
 .game {
-    max-width: 1400px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
+width: min(1400px, 100%);
+margin: auto;
+
+```
+display: flex;
+flex-direction: column;
+```
+
 }
 
 .game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+```
+padding-bottom: 20px;
+
+border-bottom: 2px solid var(--border);
+```
+
 }
 
 .round-info span,
 .turn-info span,
 .player-footer span {
-    display: block;
-    color: var(--muted);
-    font-size: 8px;
-    margin-bottom: 7px;
+display: block;
+
+```
+margin-bottom: 7px;
+
+color: var(--muted);
+font-size: 8px;
+```
+
 }
 
 .round-info strong {
-    font-size: 16px;
+font-size: 15px;
 }
 
 .turn-info {
-    text-align: center;
+text-align: center;
+}
+
+.turn-info span {
+margin-bottom: 10px;
 }
 
 .turn-info strong {
-    font-size: 28px;
+font-size: 28px;
 }
 
 .game-actions {
-    display: flex;
-    gap: 8px;
+display: flex;
+gap: 8px;
 }
 
 .game-actions button {
-    background: var(--panel);
-    color: var(--text);
-    border: 2px solid var(--border);
-    padding: 10px;
-    font-size: 9px;
+padding: 10px;
+
+```
+background: var(--panel);
+color: var(--text);
+
+border: 2px solid var(--border);
+
+font-size: 8px;
+```
+
 }
 
+.game-actions button:hover {
+border-color: var(--text);
+}
 
-/* =========================
-   OPPONENTS
-========================= */
+/* =========================================
+OPPONENTS
+========================================= */
 
 .opponents {
-    display: flex;
-    gap: 10px;
-    padding: 20px 0;
+display: flex;
+gap: 10px;
+
+```
+padding: 20px 0;
+```
+
 }
 
 .opponent {
-    flex: 1;
-    background: var(--panel);
-    border: 2px solid var(--border);
-    padding: 15px;
+flex: 1;
+
+```
+padding: 15px;
+
+background: var(--panel);
+border: 2px solid var(--border);
+```
+
 }
 
 .opponent-header {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+display: flex;
+gap: 10px;
+align-items: center;
 }
 
 .opponent-header strong {
-    display: block;
-    font-size: 10px;
+display: block;
+
+```
+margin-bottom: 6px;
+
+font-size: 9px;
+```
+
 }
 
 .opponent-header span {
-    font-size: 10px;
+font-size: 9px;
 }
 
 .opponent-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    color: var(--muted);
-    font-size: 10px;
+display: flex;
+justify-content: space-between;
+
+```
+margin-top: 15px;
+
+color: var(--muted);
+font-size: 9px;
+```
+
 }
 
-
-/* =========================
-   TABLE
-========================= */
+/* =========================================
+GAME TABLE
+========================================= */
 
 .game-table {
-    flex: 1;
-    background: var(--panel);
-    border: 3px solid var(--border);
-    padding: 25px;
+flex: 1;
+
+```
+padding: 25px;
+
+background: var(--panel);
+border: 3px solid var(--border);
+```
+
 }
 
 .table-title {
-    text-align: center;
-    margin-bottom: 15px;
+text-align: center;
+margin-bottom: 15px;
 }
 
 .table-title span {
-    display: block;
-    color: var(--muted);
-    font-size: 9px;
-    margin-bottom: 8px;
+display: block;
+
+```
+margin-bottom: 8px;
+
+color: var(--muted);
+font-size: 8px;
+```
+
 }
 
 .table-title strong {
-    font-family: "Press Start 2P", monospace;
-    font-size: 42px;
+font-family: "Press Start 2P", monospace;
+font-size: 42px;
 }
 
 .activity-log {
-    min-height: 45px;
-    max-height: 80px;
-    overflow-y: auto;
-    padding: 10px;
-    background: var(--bg);
-    border: 2px solid var(--border);
-    margin-bottom: 25px;
+min-height: 45px;
+max-height: 80px;
+
+```
+overflow-y: auto;
+
+padding: 10px;
+margin-bottom: 25px;
+
+background: var(--bg);
+border: 2px solid var(--border);
+```
+
 }
 
 .activity-log p {
-    color: var(--muted);
-    font-size: 9px;
-    margin-bottom: 4px;
+margin-bottom: 4px;
+
+```
+color: var(--muted);
+font-size: 8px;
+```
+
 }
 
 .hand-header,
 .items-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+```
+margin-bottom: 12px;
+```
+
 }
 
 .hand-header h2,
 .items-header h2 {
-    font-size: 11px;
+font-size: 10px;
 }
 
 .hand-header span,
 .items-header span {
-    color: var(--muted);
-    font-size: 8px;
+color: var(--muted);
+font-size: 8px;
 }
 
+/* =========================================
+CARDS
+========================================= */
+
 .card-hand {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 15px;
+display: flex;
+gap: 10px;
+
+```
+overflow-x: auto;
+
+padding-bottom: 15px;
+```
+
 }
 
 .card {
-    min-width: 150px;
-    min-height: 190px;
-    padding: 18px;
-    background: var(--bg);
-    color: var(--text);
-    border: 2px solid var(--border);
-    text-align: left;
-    transition: 0.15s;
+min-width: 150px;
+min-height: 190px;
+
+```
+padding: 18px;
+
+background: var(--bg);
+color: var(--text);
+
+border: 2px solid var(--border);
+
+text-align: left;
+
+transition:
+    transform 0.12s,
+    border-color 0.12s;
+```
+
 }
 
 .card:hover {
-    border-color: var(--text);
-    transform: translateY(-8px);
+border-color: var(--text);
+transform: translateY(-7px);
+}
+
+.card:active {
+transform: translateY(-2px);
 }
 
 .card-icon {
-    display: block;
-    font-size: 28px;
-    margin-bottom: 25px;
+display: block;
+
+```
+margin-bottom: 25px;
+
+font-size: 28px;
+```
+
 }
 
-.card strong,
-.item strong {
-    display: block;
-    font-family: "Press Start 2P", monospace;
-    font-size: 9px;
-    margin-bottom: 12px;
+.card strong {
+display: block;
+
+```
+margin-bottom: 12px;
+
+font-size: 8px;
+```
+
 }
 
 .card p {
-    color: var(--muted);
-    font-size: 9px;
-    line-height: 1.6;
+color: var(--muted);
+
+```
+font-family: "Space Mono", monospace;
+font-size: 8px;
+line-height: 1.6;
+```
+
 }
 
+/* =========================================
+ITEMS
+========================================= */
+
 .items-section {
-    margin-top: 20px;
+margin-top: 20px;
 }
 
 .item-hand {
-    display: flex;
-    gap: 10px;
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
 }
 
 .item {
-    padding: 12px 15px;
-    background: var(--bg);
-    color: var(--text);
-    border: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
+
+```
+padding: 12px 15px;
+
+background: var(--bg);
+color: var(--text);
+
+border: 2px solid var(--border);
+```
+
 }
 
 .item:hover {
-    border-color: var(--text);
+border-color: var(--text);
 }
 
 .item span {
-    font-size: 20px;
+font-size: 20px;
 }
 
+.item strong {
+font-size: 7px;
+}
+
+/* =========================================
+END TURN
+========================================= */
+
 .end-turn {
-    display: block;
-    width: 100%;
-    margin-top: 25px;
-    padding: 18px;
-    background: transparent;
-    color: var(--text);
-    border: 2px solid var(--text);
+width: 100%;
+
+```
+margin-top: 25px;
+padding: 18px;
+
+background: transparent;
+color: var(--text);
+
+border: 2px solid var(--text);
+
+font-size: 9px;
+
+transition: 0.1s;
+```
+
 }
 
 .end-turn:hover {
-    background: var(--text);
-    color: var(--bg);
+background: var(--text);
+color: var(--bg);
 }
 
-
-/* =========================
-   FOOTER
-========================= */
+/* =========================================
+PLAYER FOOTER
+========================================= */
 
 .player-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+```
+gap: 20px;
+
+padding-top: 20px;
+```
+
 }
 
 .player-footer strong {
-    font-size: 12px;
+font-size: 11px;
 }
 
 .player-footer button {
-    background: var(--text);
-    color: var(--bg);
-    padding: 12px 18px;
+padding: 12px 18px;
+
+```
+background: var(--text);
+color: var(--bg);
+
+font-size: 8px;
+```
+
 }
 
+.player-footer button:hover {
+background: transparent;
+color: var(--text);
+border: 2px solid var(--text);
+}
 
-/* =========================
-   MODALS
-========================= */
+/* =========================================
+MODALS
+========================================= */
 
 .modal {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 100;
+position: fixed;
+inset: 0;
+
+```
+display: grid;
+place-items: center;
+
+padding: 20px;
+
+background: rgba(0, 0, 0, 0.82);
+
+z-index: 100;
+```
+
 }
 
 .modal.hidden {
-    display: none;
+display: none;
 }
 
 .modal-content {
-    position: relative;
-    width: min(600px, 100%);
-    max-height: 90vh;
-    overflow-y: auto;
-    background: var(--panel);
-    border: 3px solid var(--border);
-    padding: 30px;
+position: relative;
+
+```
+width: min(600px, 100%);
+max-height: 90vh;
+
+overflow-y: auto;
+
+padding: 30px;
+
+background: var(--panel);
+
+border: 3px solid var(--border);
+```
+
 }
 
 .modal-content h2 {
-    font-size: 16px;
-    margin-bottom: 20px;
+margin-bottom: 20px;
+
+```
+font-size: 14px;
+```
+
 }
 
 .modal-content p {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.8;
-    margin-bottom: 15px;
+margin-bottom: 15px;
+
+```
+color: var(--muted);
+
+font-size: 10px;
+line-height: 1.8;
+```
+
 }
 
 .close-button {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
-    color: var(--muted);
-    font-size: 25px;
+position: absolute;
+top: 10px;
+right: 12px;
+
+```
+background: transparent;
+color: var(--muted);
+
+font-family: "Space Mono", monospace;
+font-size: 25px;
+```
+
 }
 
+.close-button:hover {
+color: var(--text);
+}
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* =========================================
+SHOP
+========================================= */
+
+.shop-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+```
+gap: 15px;
+
+padding: 15px;
+margin-bottom: 10px;
+
+background: var(--bg);
+border: 2px solid var(--border);
+```
+
+}
+
+.shop-item strong {
+display: block;
+
+```
+margin-bottom: 8px;
+
+font-family: "Press Start 2P", monospace;
+font-size: 8px;
+```
+
+}
+
+.shop-item p {
+margin: 0;
+font-size: 8px;
+}
+
+.shop-item button {
+flex-shrink: 0;
+
+```
+padding: 10px;
+
+background: var(--text);
+color: var(--bg);
+
+font-size: 8px;
+```
+
+}
+
+.shop-item button:hover {
+background: transparent;
+color: var(--text);
+border: 2px solid var(--text);
+}
+
+/* =========================================
+SCROLLBARS
+========================================= */
+
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+
+::-webkit-scrollbar-track {
+background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--border-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: var(--muted);
+}
+
+/* =========================================
+RESPONSIVE
+========================================= */
 
 @media (max-width: 700px) {
 
-    .main-menu,
-    .lobby-browser,
-    .create-lobby,
-    .waiting-lobby,
-    .game {
-        padding: 15px;
-    }
+```
+.main-menu,
+.lobby-browser,
+.create-lobby,
+.waiting-lobby,
+.game {
+    padding: 15px;
+}
 
-    .page-header,
-    .lobby-header {
-        flex-wrap: wrap;
-    }
+.page-header,
+.lobby-header {
+    flex-wrap: wrap;
+}
 
-    .lobby-code {
-        width: 100%;
-        text-align: left;
-    }
+.lobby-code {
+    width: 100%;
+    text-align: left;
+}
 
-    .lobby-code button {
-        margin-left: 0;
-    }
+.lobby-code button {
+    margin-left: 0;
+}
 
-    .item-list,
-    .player-list,
-    .rules-grid {
-        grid-template-columns: 1fr;
-    }
+.option-buttons {
+    flex-direction: column;
+}
 
-    .opponents {
-        overflow-x: auto;
-    }
+.item-list,
+.player-list,
+.rules-grid {
+    grid-template-columns: 1fr;
+}
 
-    .opponent {
-        min-width: 180px;
-    }
+.opponents {
+    overflow-x: auto;
+}
 
-    .player-footer {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+.opponent {
+    min-width: 180px;
+}
 
-    .table-title strong {
-        font-size: 32px;
-    }
+.player-footer {
+    flex-wrap: wrap;
+}
+
+.table-title strong {
+    font-size: 32px;
+}
+
+.game-header {
+    gap: 15px;
+}
+
+.turn-info strong {
+    font-size: 22px;
+}
+```
 
 }
