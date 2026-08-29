@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Lobby — Dead Last</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="create-lobby">
+
+        <header class="page-header">
+            <button class="back-button" onclick="goBack()">← BACK</button>
+            <h1>CREATE LOBBY</h1>
+        </header>
+
+        <section class="lobby-settings">
+
+            <div class="setting">
+                <label for="lobbyName">LOBBY NAME</label>
+                <input
+                    type="text"
+                    id="lobbyName"
+                    placeholder="MY LOBBY"
+                    maxlength="20"
+                >
+            </div>
+
+            <div class="setting">
+                <label>LOBBY TYPE</label>
+
+                <div class="option-buttons">
+                    <button
+                        id="openLobby"
+                        class="selected"
+                        onclick="setLobbyType('open')"
+                    >
+                        🌐 OPEN
+                    </button>
+
+                    <button
+                        id="privateLobby"
+                        onclick="setLobbyType('private')"
+                    >
+                        🔒 CODE REQUIRED
+                    </button>
+                </div>
+            </div>
+
+            <div class="setting">
+                <label for="maxPlayers">MAX PLAYERS</label>
+
+                <select id="maxPlayers">
+                    <option value="2">2 PLAYERS</option>
+                    <option value="3">3 PLAYERS</option>
+                    <option value="4" selected>4 PLAYERS</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="turnTime">TURN TIME</label>
+
+                <select id="turnTime">
+                    <option value="15">15 SECONDS</option>
+                    <option value="20">20 SECONDS</option>
+                    <option value="30" selected>30 SECONDS</option>
+                    <option value="45">45 SECONDS</option>
+                    <option value="60">60 SECONDS</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="startingLives">STARTING LIVES</label>
+
+                <select id="startingLives">
+                    <option value="1">1 LIFE</option>
+                    <option value="2">2 LIVES</option>
+                    <option value="3" selected>3 LIVES</option>
+                    <option value="4">4 LIVES</option>
+                    <option value="5">5 LIVES</option>
+                </select>
+            </div>
+
+            <div class="setting">
+                <label for="startingCoins">STARTING COINS</label>
+
+                <select id="startingCoins">
+                    <option value="0">0 COINS</option>
+                    <option value="3">3 COINS</option>
+                    <option value="5" selected>5 COINS</option>
+                    <option value="10">10 COINS</option>
+                </select>
+            </div>
+
+        </section>
+
+        <section class="shop-settings">
+
+            <h2>SHOP ITEMS</h2>
+            <p>Choose which items can appear in the shop.</p>
+
+            <div class="item-list">
+
+                <label class="item-option">
+                    <input type="checkbox" value="emergencyStop" checked>
+                    <span>🛑 Emergency Stop</span>
+                </label>
+
+                <label class="item-option">
+                    <input type="checkbox" value="shield" checked>
+                    <span>🛡️ Shield</span>
+                </label>
+
+                <label class="item-option">
+                    <input type="checkbox" value="spyglass" checked>
+                    <span>🔎 Spyglass</span>
+                </label>
+
+                <label class="item-option">
+                    <input type="checkbox" value="pickpocket" checked>
+                    <span>💰 Pickpocket</span>
+                </label>
+
+                <label class="item-option">
+                    <input type="checkbox" value="rewind" checked>
+                    <span>🔄 Rewind</span>
+                </label>
+
+                <label class="item-option">
+                    <input type="checkbox" value="timeBomb">
+                    <span>⏳ Time Bomb</span>
+                </label>
+
+                <label class="item-option">
+                    <input type="checkbox" value="disguise">
+                    <span>🎭 Disguise</span>
+                </label>
+
+            </div>
+
+        </section>
+
+        <button class="start-button" onclick="createGameLobby()">
+            CREATE LOBBY
+        </button>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
