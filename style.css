@@ -1,0 +1,869 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0b0b0f;
+    --panel: #121218;
+    --panel-light: #191922;
+    --border: #2a2a35;
+    --text: #f1f1f1;
+    --muted: #8b8b98;
+    --accent: #ffffff;
+    --danger: #ff4d4d;
+    --gold: #f4c542;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Space Mono", monospace;
+    image-rendering: pixelated;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+.main-menu,
+.lobby-browser,
+.create-lobby,
+.waiting-lobby,
+.game {
+    min-height: 100vh;
+    padding: 30px;
+}
+
+h1,
+h2,
+button,
+.logo p,
+.lobby-code strong {
+    font-family: "Press Start 2P", monospace;
+}
+
+
+/* =========================
+   MAIN MENU
+========================= */
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: clamp(38px, 7vw, 80px);
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    text-shadow: 5px 5px 0 #252530;
+}
+
+.logo p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+    max-width: 500px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(350px, 90%);
+    margin-top: 50px;
+}
+
+.menu-buttons button,
+.create-button,
+.start-button {
+    padding: 18px 22px;
+    background: var(--text);
+    color: var(--bg);
+    border: 3px solid var(--text);
+    transition: 0.15s;
+}
+
+.menu-buttons button:hover,
+.create-button:hover,
+.start-button:hover {
+    background: transparent;
+    color: var(--text);
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--text);
+}
+
+.menu-footer {
+    position: absolute;
+    bottom: 25px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+
+/* =========================
+   HEADERS
+========================= */
+
+.page-header,
+.lobby-header {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+}
+
+.page-header h1,
+.lobby-header h1 {
+    font-size: 22px;
+}
+
+.back-button {
+    background: transparent;
+    color: var(--muted);
+    border: 2px solid var(--border);
+    padding: 12px 15px;
+}
+
+.back-button:hover {
+    color: var(--text);
+    border-color: var(--text);
+}
+
+
+/* =========================
+   LOBBY BROWSER
+========================= */
+
+.lobby-browser {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.join-code,
+.open-lobbies {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.join-code h2,
+.section-title h2 {
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.code-input {
+    display: flex;
+    gap: 10px;
+}
+
+.code-input input,
+.setting input,
+.setting select {
+    flex: 1;
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    padding: 15px;
+    outline: none;
+}
+
+.code-input input:focus,
+.setting input:focus,
+.setting select:focus {
+    border-color: var(--text);
+}
+
+.code-input button {
+    padding: 15px 25px;
+    background: var(--text);
+    color: var(--bg);
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title button {
+    background: transparent;
+    color: var(--muted);
+}
+
+.lobby-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.empty-lobbies {
+    text-align: center;
+    padding: 50px 20px;
+    border: 2px dashed var(--border);
+}
+
+.empty-lobbies p {
+    font-family: "Press Start 2P", monospace;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.empty-lobbies span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* =========================
+   CREATE LOBBY
+========================= */
+
+.create-lobby {
+    max-width: 850px;
+    margin: auto;
+}
+
+.lobby-settings,
+.shop-settings {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.setting {
+    margin-bottom: 25px;
+}
+
+.setting:last-child {
+    margin-bottom: 0;
+}
+
+.setting label {
+    display: block;
+    font-family: "Press Start 2P", monospace;
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
+.option-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.option-buttons button {
+    flex: 1;
+    padding: 15px;
+    background: var(--bg);
+    color: var(--muted);
+    border: 2px solid var(--border);
+}
+
+.option-buttons button.selected {
+    color: var(--text);
+    border-color: var(--text);
+}
+
+.shop-settings h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.shop-settings > p {
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.item-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.item-option {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    padding: 15px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.item-option:hover {
+    border-color: var(--text);
+}
+
+.item-option input {
+    margin-right: 8px;
+}
+
+.start-button {
+    width: 100%;
+}
+
+
+/* =========================
+   WAITING LOBBY
+========================= */
+
+.waiting-lobby {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.lobby-header {
+    justify-content: space-between;
+}
+
+.lobby-header > div:nth-child(2) {
+    flex: 1;
+}
+
+.lobby-header h1 {
+    margin-bottom: 8px;
+}
+
+.lobby-header p {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.lobby-code {
+    text-align: right;
+}
+
+.lobby-code span {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+    margin-bottom: 8px;
+}
+
+.lobby-code strong {
+    font-size: 18px;
+    letter-spacing: 4px;
+}
+
+.lobby-code button {
+    display: block;
+    margin-left: auto;
+    margin-top: 8px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.players-section,
+.rules-section {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.players-section h2,
+.rules-header h2 {
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.player-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+}
+
+.player-avatar,
+.avatar {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    background: var(--panel-light);
+    border: 2px solid var(--border);
+    font-family: "Press Start 2P", monospace;
+}
+
+.player-info {
+    flex: 1;
+}
+
+.player-info strong {
+    display: block;
+    font-size: 12px;
+}
+
+.player-info span {
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.player-status {
+    font-size: 9px;
+}
+
+.player-status.ready {
+    color: #7dff9b;
+}
+
+.rules-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rules-header button {
+    background: transparent;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.rule {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    padding: 18px;
+}
+
+.rule span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.rule strong {
+    display: block;
+    font-family: "Press Start 2P", monospace;
+    font-size: 8px;
+    margin-bottom: 8px;
+}
+
+.rule p {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.lobby-actions {
+    text-align: center;
+}
+
+.lobby-actions p {
+    color: var(--muted);
+    font-size: 10px;
+    margin-bottom: 15px;
+}
+
+.start-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* =========================
+   GAME
+========================= */
+
+.game {
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+}
+
+.round-info span,
+.turn-info span,
+.player-footer span {
+    display: block;
+    color: var(--muted);
+    font-size: 8px;
+    margin-bottom: 7px;
+}
+
+.round-info strong {
+    font-size: 16px;
+}
+
+.turn-info {
+    text-align: center;
+}
+
+.turn-info strong {
+    font-size: 28px;
+}
+
+.game-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.game-actions button {
+    background: var(--panel);
+    color: var(--text);
+    border: 2px solid var(--border);
+    padding: 10px;
+    font-size: 9px;
+}
+
+
+/* =========================
+   OPPONENTS
+========================= */
+
+.opponents {
+    display: flex;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+.opponent {
+    flex: 1;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    padding: 15px;
+}
+
+.opponent-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.opponent-header strong {
+    display: block;
+    font-size: 10px;
+}
+
+.opponent-header span {
+    font-size: 10px;
+}
+
+.opponent-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.game-table {
+    flex: 1;
+    background: var(--panel);
+    border: 3px solid var(--border);
+    padding: 25px;
+}
+
+.table-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.table-title span {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+    margin-bottom: 8px;
+}
+
+.table-title strong {
+    font-family: "Press Start 2P", monospace;
+    font-size: 42px;
+}
+
+.activity-log {
+    min-height: 45px;
+    max-height: 80px;
+    overflow-y: auto;
+    padding: 10px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    margin-bottom: 25px;
+}
+
+.activity-log p {
+    color: var(--muted);
+    font-size: 9px;
+    margin-bottom: 4px;
+}
+
+.hand-header,
+.items-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.hand-header h2,
+.items-header h2 {
+    font-size: 11px;
+}
+
+.hand-header span,
+.items-header span {
+    color: var(--muted);
+    font-size: 8px;
+}
+
+.card-hand {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+}
+
+.card {
+    min-width: 150px;
+    min-height: 190px;
+    padding: 18px;
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    text-align: left;
+    transition: 0.15s;
+}
+
+.card:hover {
+    border-color: var(--text);
+    transform: translateY(-8px);
+}
+
+.card-icon {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.card strong,
+.item strong {
+    display: block;
+    font-family: "Press Start 2P", monospace;
+    font-size: 9px;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+.items-section {
+    margin-top: 20px;
+}
+
+.item-hand {
+    display: flex;
+    gap: 10px;
+}
+
+.item {
+    padding: 12px 15px;
+    background: var(--bg);
+    color: var(--text);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item:hover {
+    border-color: var(--text);
+}
+
+.item span {
+    font-size: 20px;
+}
+
+.end-turn {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    padding: 18px;
+    background: transparent;
+    color: var(--text);
+    border: 2px solid var(--text);
+}
+
+.end-turn:hover {
+    background: var(--text);
+    color: var(--bg);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.player-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.player-footer strong {
+    font-size: 12px;
+}
+
+.player-footer button {
+    background: var(--text);
+    color: var(--bg);
+    padding: 12px 18px;
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    position: relative;
+    width: min(600px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--panel);
+    border: 3px solid var(--border);
+    padding: 30px;
+}
+
+.modal-content h2 {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 25px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .main-menu,
+    .lobby-browser,
+    .create-lobby,
+    .waiting-lobby,
+    .game {
+        padding: 15px;
+    }
+
+    .page-header,
+    .lobby-header {
+        flex-wrap: wrap;
+    }
+
+    .lobby-code {
+        width: 100%;
+        text-align: left;
+    }
+
+    .lobby-code button {
+        margin-left: 0;
+    }
+
+    .item-list,
+    .player-list,
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .opponents {
+        overflow-x: auto;
+    }
+
+    .opponent {
+        min-width: 180px;
+    }
+
+    .player-footer {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .table-title strong {
+        font-size: 32px;
+    }
+
+}
