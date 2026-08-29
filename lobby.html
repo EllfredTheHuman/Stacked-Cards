@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby — Dead Last</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="waiting-lobby">
+
+        <header class="lobby-header">
+
+            <button class="back-button" onclick="leaveLobby()">
+                ← LEAVE
+            </button>
+
+            <div>
+                <h1 id="lobbyName">MY LOBBY</h1>
+                <p>WAITING FOR PLAYERS</p>
+            </div>
+
+            <div class="lobby-code">
+                <span>LOBBY CODE</span>
+                <strong id="lobbyCode">------</strong>
+                <button onclick="copyLobbyCode()">COPY</button>
+            </div>
+
+        </header>
+
+
+        <section class="players-section">
+
+            <h2>PLAYERS <span id="playerCount">1/4</span></h2>
+
+            <div id="playerList" class="player-list">
+
+                <div class="player-card host">
+
+                    <div class="player-avatar">
+                        ?
+                    </div>
+
+                    <div class="player-info">
+                        <strong id="hostName">YOU</strong>
+                        <span>HOST</span>
+                    </div>
+
+                    <div class="player-status ready">
+                        READY
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="rules-section">
+
+            <div class="rules-header">
+                <h2>RULES</h2>
+
+                <button id="editRulesButton" onclick="editRules()">
+                    EDIT RULES
+                </button>
+            </div>
+
+            <div class="rules-grid">
+
+                <div class="rule">
+                    <span>⏱️</span>
+                    <strong>TURN TIME</strong>
+                    <p id="turnTime">30 SECONDS</p>
+                </div>
+
+                <div class="rule">
+                    <span>❤️</span>
+                    <strong>LIVES</strong>
+                    <p id="startingLives">3</p>
+                </div>
+
+                <div class="rule">
+                    <span>🪙</span>
+                    <strong>STARTING COINS</strong>
+                    <p id="startingCoins">5</p>
+                </div>
+
+                <div class="rule">
+                    <span>👥</span>
+                    <strong>MAX PLAYERS</strong>
+                    <p id="maxPlayers">4</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="lobby-actions">
+
+            <p id="waitingMessage">
+                WAITING FOR MORE PLAYERS...
+            </p>
+
+            <button
+                id="startGameButton"
+                class="start-button"
+                onclick="startGame()"
+                disabled
+            >
+                START GAME
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
